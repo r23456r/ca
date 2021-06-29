@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bochtec.mysql.dao.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.bochtec.mysql.domain.BusinessDomain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="seller_id" jdbcType="INTEGER" property="sellerId" />
+    <result column="seller_name" jdbcType="VARCHAR" property="sellerName" />
+    <result column="busi_phone" jdbcType="VARCHAR" property="busiPhone" />
+    <result column="branch_id" jdbcType="INTEGER" property="branchId" />
+    <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+    <result column="real_address" jdbcType="VARCHAR" property="realAddress" />
+    <result column="real_address_longitude" jdbcType="VARCHAR" property="realAddressLongitude" />
+    <result column="real_address_latitude" jdbcType="VARCHAR" property="realAddressLatitude" />
+    <result column="idcard_check_result" jdbcType="VARCHAR" property="idcardCheckResult" />
+    <result column="face_check_result" jdbcType="VARCHAR" property="faceCheckResult" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
+    <result column="social_code" jdbcType="VARCHAR" property="socialCode" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="establishment_date" jdbcType="VARCHAR" property="establishmentDate" />
+    <result column="issuing_bank" jdbcType="VARCHAR" property="issuingBank" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="card_expiration_date" jdbcType="VARCHAR" property="cardExpirationDate" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="approval_by" jdbcType="VARCHAR" property="approvalBy" />
+    <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime" />
+    <result column="approval_opinion" jdbcType="VARCHAR" property="approvalOpinion" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="business_nature" jdbcType="VARCHAR" property="businessNature" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="postalcode" jdbcType="VARCHAR" property="postalcode" />
+    <result column="registered_capital" jdbcType="VARCHAR" property="registeredCapital" />
+    <result column="account_type" jdbcType="TINYINT" property="accountType" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, seller_id, seller_name, busi_phone, branch_id, business_type, real_address, real_address_longitude, 
+    real_address_latitude, idcard_check_result, face_check_result, company_name, legal_person, 
+    social_code, industry, address, establishment_date, issuing_bank, bank_account, card_expiration_date, 
+    status, create_by, create_time, approval_by, approval_time, approval_opinion, update_by, 
+    update_time, business_nature, linkman, mobile_phone, email, postalcode, registered_capital, 
+    account_type, account_name, version
+  </sql>
+  <select id="selectByExample" parameterType="com.bochtec.mysql.domain.BusinessDomainExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_business
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_business
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_business
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bochtec.mysql.domain.BusinessDomainExample">
+    delete from tb_business
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bochtec.mysql.domain.BusinessDomain">
+    insert into tb_business (id, seller_id, seller_name, 
+      busi_phone, branch_id, business_type, 
+      real_address, real_address_longitude, real_address_latitude, 
+      idcard_check_result, face_check_result, company_name, 
+      legal_person, social_code, industry, 
+      address, establishment_date, issuing_bank, 
+      bank_account, card_expiration_date, status, 
+      create_by, create_time, approval_by, 
+      approval_time, approval_opinion, update_by, 
+      update_time, business_nature, linkman, 
+      mobile_phone, email, postalcode, 
+      registered_capital, account_type, account_name, 
+      version)
+    values (#{id,jdbcType=INTEGER}, #{sellerId,jdbcType=INTEGER}, #{sellerName,jdbcType=VARCHAR}, 
+      #{busiPhone,jdbcType=VARCHAR}, #{branchId,jdbcType=INTEGER}, #{businessType,jdbcType=VARCHAR}, 
+      #{realAddress,jdbcType=VARCHAR}, #{realAddressLongitude,jdbcType=VARCHAR}, #{realAddressLatitude,jdbcType=VARCHAR}, 
+      #{idcardCheckResult,jdbcType=VARCHAR}, #{faceCheckResult,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{legalPerson,jdbcType=VARCHAR}, #{socialCode,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{establishmentDate,jdbcType=VARCHAR}, #{issuingBank,jdbcType=VARCHAR}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{cardExpirationDate,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{approvalBy,jdbcType=VARCHAR}, 
+      #{approvalTime,jdbcType=TIMESTAMP}, #{approvalOpinion,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{businessNature,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{postalcode,jdbcType=VARCHAR}, 
+      #{registeredCapital,jdbcType=VARCHAR}, #{accountType,jdbcType=TINYINT}, #{accountName,jdbcType=VARCHAR}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bochtec.mysql.domain.BusinessDomain">
+    insert into tb_business
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sellerId != null">
+        seller_id,
+      </if>
+      <if test="sellerName != null">
+        seller_name,
+      </if>
+      <if test="busiPhone != null">
+        busi_phone,
+      </if>
+      <if test="branchId != null">
+        branch_id,
+      </if>
+      <if test="businessType != null">
+        business_type,
+      </if>
+      <if test="realAddress != null">
+        real_address,
+      </if>
+      <if test="realAddressLongitude != null">
+        real_address_longitude,
+      </if>
+      <if test="realAddressLatitude != null">
+        real_address_latitude,
+      </if>
+      <if test="idcardCheckResult != null">
+        idcard_check_result,
+      </if>
+      <if test="faceCheckResult != null">
+        face_check_result,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="legalPerson != null">
+        legal_person,
+      </if>
+      <if test="socialCode != null">
+        social_code,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="establishmentDate != null">
+        establishment_date,
+      </if>
+      <if test="issuingBank != null">
+        issuing_bank,
+      </if>
+      <if test="bankAccount != null">
+        bank_account,
+      </if>
+      <if test="cardExpirationDate != null">
+        card_expiration_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="approvalBy != null">
+        approval_by,
+      </if>
+      <if test="approvalTime != null">
+        approval_time,
+      </if>
+      <if test="approvalOpinion != null">
+        approval_opinion,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="businessNature != null">
+        business_nature,
+      </if>
+      <if test="linkman != null">
+        linkman,
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="postalcode != null">
+        postalcode,
+      </if>
+      <if test="registeredCapital != null">
+        registered_capital,
+      </if>
+      <if test="accountType != null">
+        account_type,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerName != null">
+        #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="busiPhone != null">
+        #{busiPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="branchId != null">
+        #{branchId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="realAddress != null">
+        #{realAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="realAddressLongitude != null">
+        #{realAddressLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="realAddressLatitude != null">
+        #{realAddressLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardCheckResult != null">
+        #{idcardCheckResult,jdbcType=VARCHAR},
+      </if>
+      <if test="faceCheckResult != null">
+        #{faceCheckResult,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCode != null">
+        #{socialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="establishmentDate != null">
+        #{establishmentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingBank != null">
+        #{issuingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="cardExpirationDate != null">
+        #{cardExpirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalBy != null">
+        #{approvalBy,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalTime != null">
+        #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalOpinion != null">
+        #{approvalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessNature != null">
+        #{businessNature,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="postalcode != null">
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null">
+        #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null">
+        #{accountType,jdbcType=TINYINT},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bochtec.mysql.domain.BusinessDomainExample" resultType="java.lang.Long">
+    select count(*) from tb_business
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_business
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellerId != null">
+        seller_id = #{record.sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellerName != null">
+        seller_name = #{record.sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busiPhone != null">
+        busi_phone = #{record.busiPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchId != null">
+        branch_id = #{record.branchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessType != null">
+        business_type = #{record.businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realAddress != null">
+        real_address = #{record.realAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realAddressLongitude != null">
+        real_address_longitude = #{record.realAddressLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realAddressLatitude != null">
+        real_address_latitude = #{record.realAddressLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardCheckResult != null">
+        idcard_check_result = #{record.idcardCheckResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faceCheckResult != null">
+        face_check_result = #{record.faceCheckResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPerson != null">
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.socialCode != null">
+        social_code = #{record.socialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null">
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.establishmentDate != null">
+        establishment_date = #{record.establishmentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuingBank != null">
+        issuing_bank = #{record.issuingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccount != null">
+        bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardExpirationDate != null">
+        card_expiration_date = #{record.cardExpirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.approvalBy != null">
+        approval_by = #{record.approvalBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approvalTime != null">
+        approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.approvalOpinion != null">
+        approval_opinion = #{record.approvalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.businessNature != null">
+        business_nature = #{record.businessNature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null">
+        linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null">
+        mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postalcode != null">
+        postalcode = #{record.postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registeredCapital != null">
+        registered_capital = #{record.registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountType != null">
+        account_type = #{record.accountType,jdbcType=TINYINT},
+      </if>
+      <if test="record.accountName != null">
+        account_name = #{record.accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_business
+    set id = #{record.id,jdbcType=INTEGER},
+      seller_id = #{record.sellerId,jdbcType=INTEGER},
+      seller_name = #{record.sellerName,jdbcType=VARCHAR},
+      busi_phone = #{record.busiPhone,jdbcType=VARCHAR},
+      branch_id = #{record.branchId,jdbcType=INTEGER},
+      business_type = #{record.businessType,jdbcType=VARCHAR},
+      real_address = #{record.realAddress,jdbcType=VARCHAR},
+      real_address_longitude = #{record.realAddressLongitude,jdbcType=VARCHAR},
+      real_address_latitude = #{record.realAddressLatitude,jdbcType=VARCHAR},
+      idcard_check_result = #{record.idcardCheckResult,jdbcType=VARCHAR},
+      face_check_result = #{record.faceCheckResult,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      social_code = #{record.socialCode,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      establishment_date = #{record.establishmentDate,jdbcType=VARCHAR},
+      issuing_bank = #{record.issuingBank,jdbcType=VARCHAR},
+      bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      card_expiration_date = #{record.cardExpirationDate,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      approval_by = #{record.approvalBy,jdbcType=VARCHAR},
+      approval_time = #{record.approvalTime,jdbcType=TIMESTAMP},
+      approval_opinion = #{record.approvalOpinion,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      business_nature = #{record.businessNature,jdbcType=VARCHAR},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      postalcode = #{record.postalcode,jdbcType=VARCHAR},
+      registered_capital = #{record.registeredCapital,jdbcType=VARCHAR},
+      account_type = #{record.accountType,jdbcType=TINYINT},
+      account_name = #{record.accountName,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bochtec.mysql.domain.BusinessDomain">
+    update tb_business
+    <set>
+      <if test="sellerId != null">
+        seller_id = #{sellerId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerName != null">
+        seller_name = #{sellerName,jdbcType=VARCHAR},
+      </if>
+      <if test="busiPhone != null">
+        busi_phone = #{busiPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="branchId != null">
+        branch_id = #{branchId,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null">
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="realAddress != null">
+        real_address = #{realAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="realAddressLongitude != null">
+        real_address_longitude = #{realAddressLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="realAddressLatitude != null">
+        real_address_latitude = #{realAddressLatitude,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardCheckResult != null">
+        idcard_check_result = #{idcardCheckResult,jdbcType=VARCHAR},
+      </if>
+      <if test="faceCheckResult != null">
+        face_check_result = #{faceCheckResult,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null">
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="socialCode != null">
+        social_code = #{socialCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="establishmentDate != null">
+        establishment_date = #{establishmentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingBank != null">
+        issuing_bank = #{issuingBank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="cardExpirationDate != null">
+        card_expiration_date = #{cardExpirationDate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalBy != null">
+        approval_by = #{approvalBy,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalTime != null">
+        approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalOpinion != null">
+        approval_opinion = #{approvalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessNature != null">
+        business_nature = #{businessNature,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null">
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="postalcode != null">
+        postalcode = #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="registeredCapital != null">
+        registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null">
+        account_type = #{accountType,jdbcType=TINYINT},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bochtec.mysql.domain.BusinessDomain">
+    update tb_business
+    set seller_id = #{sellerId,jdbcType=INTEGER},
+      seller_name = #{sellerName,jdbcType=VARCHAR},
+      busi_phone = #{busiPhone,jdbcType=VARCHAR},
+      branch_id = #{branchId,jdbcType=INTEGER},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      real_address = #{realAddress,jdbcType=VARCHAR},
+      real_address_longitude = #{realAddressLongitude,jdbcType=VARCHAR},
+      real_address_latitude = #{realAddressLatitude,jdbcType=VARCHAR},
+      idcard_check_result = #{idcardCheckResult,jdbcType=VARCHAR},
+      face_check_result = #{faceCheckResult,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      social_code = #{socialCode,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      establishment_date = #{establishmentDate,jdbcType=VARCHAR},
+      issuing_bank = #{issuingBank,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      card_expiration_date = #{cardExpirationDate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      approval_by = #{approvalBy,jdbcType=VARCHAR},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      approval_opinion = #{approvalOpinion,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      business_nature = #{businessNature,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      postalcode = #{postalcode,jdbcType=VARCHAR},
+      registered_capital = #{registeredCapital,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=TINYINT},
+      account_name = #{accountName,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update tb_business
+      <set>
+        company_name=#{item.companyName},
+        social_code=#{item.socialCode}
+      </set>
+      where id = #{item.id}
+    </foreach>
+  </update>
+</mapper>

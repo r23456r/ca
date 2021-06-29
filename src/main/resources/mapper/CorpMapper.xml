@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bochtec.mysql.dao.CorpMapper">
+    <resultMap id="BaseResultMap" type="com.bochtec.mysql.domain.CorpDomain">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="seller_name" jdbcType="VARCHAR" property="sellerName"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="center_area" jdbcType="VARCHAR" property="centerArea"/>
+        <result column="second_area" jdbcType="VARCHAR" property="secondArea"/>
+        <result column="town" jdbcType="VARCHAR" property="town"/>
+        <result column="corp_name" jdbcType="VARCHAR" property="corpName"/>
+        <result column="social_code" jdbcType="VARCHAR" property="socialCode"/>
+        <result column="legal_person" jdbcType="VARCHAR" property="legalPerson"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="business_status" jdbcType="VARCHAR" property="businessStatus"/>
+        <result column="business_type" jdbcType="VARCHAR" property="businessType"/>
+        <result column="register_date" jdbcType="DATE" property="registerDate"/>
+        <result column="register_capital" jdbcType="VARCHAR" property="registerCapital"/>
+        <result column="contact_tel" jdbcType="VARCHAR" property="contactTel"/>
+        <result column="register_authority" jdbcType="VARCHAR" property="registerAuthority"/>
+        <result column="business_scope" jdbcType="VARCHAR" property="businessScope"/>
+        <result column="real_address" jdbcType="VARCHAR" property="realAddress"/>
+        <result column="real_address_longitude" jdbcType="VARCHAR" property="realAddressLongitude"/>
+        <result column="real_address_latitude" jdbcType="VARCHAR" property="realAddressLatitude"/>
+        <result column="expand_status" jdbcType="VARCHAR" property="expandStatus"/>
+        <result column="expand_finish_date" jdbcType="TIMESTAMP" property="expandFinishDate"/>
+        <result column="expand_loan_office_id" jdbcType="INTEGER" property="expandLoanOfficeId"/>
+        <result column="expand_loan_office_name" jdbcType="VARCHAR" property="expandLoanOfficeName"/>
+        <result column="distribute_loan_office_id" jdbcType="INTEGER" property="distributeLoanOfficeId"/>
+        <result column="distribute_loan_office_name" jdbcType="VARCHAR" property="distributeLoanOfficeName"/>
+        <result column="delete_falg" jdbcType="TINYINT" property="deleteFalg"/>
+        <result column="expand_logic_type" jdbcType="TINYINT" property="expandLogicType"/>
+        <result column="branch_id" jdbcType="INTEGER" property="branchId"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, seller_name, province, city, center_area, second_area, town, corp_name, social_code, 
+    legal_person, address, business_status, business_type, register_date, register_capital, 
+    contact_tel, register_authority, business_scope, real_address, real_address_longitude, 
+    real_address_latitude, expand_status, expand_finish_date, expand_loan_office_id, 
+    expand_loan_office_name, distribute_loan_office_id, distribute_loan_office_name, 
+    delete_falg, expand_logic_type, branch_id
+  </sql>
+    <select id="selectByExample" parameterType="com.bochtec.mysql.domain.CorpDomainExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from tb_corp
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_corp
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_corp
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.bochtec.mysql.domain.CorpDomainExample">
+        delete from tb_corp
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.bochtec.mysql.domain.CorpDomain">
+    insert into tb_corp (id, seller_name, province, 
+      city, center_area, second_area, 
+      town, corp_name, social_code, 
+      legal_person, address, business_status, 
+      business_type, register_date, register_capital, 
+      contact_tel, register_authority, business_scope, 
+      real_address, real_address_longitude, real_address_latitude, 
+      expand_status, expand_finish_date, expand_loan_office_id, 
+      expand_loan_office_name, distribute_loan_office_id, 
+      distribute_loan_office_name, delete_falg, expand_logic_type, 
+      branch_id)
+    values (#{id,jdbcType=INTEGER}, #{sellerName,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{centerArea,jdbcType=VARCHAR}, #{secondArea,jdbcType=VARCHAR}, 
+      #{town,jdbcType=VARCHAR}, #{corpName,jdbcType=VARCHAR}, #{socialCode,jdbcType=VARCHAR}, 
+      #{legalPerson,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{businessStatus,jdbcType=VARCHAR}, 
+      #{businessType,jdbcType=VARCHAR}, #{registerDate,jdbcType=DATE}, #{registerCapital,jdbcType=VARCHAR}, 
+      #{contactTel,jdbcType=VARCHAR}, #{registerAuthority,jdbcType=VARCHAR}, #{businessScope,jdbcType=VARCHAR}, 
+      #{realAddress,jdbcType=VARCHAR}, #{realAddressLongitude,jdbcType=VARCHAR}, #{realAddressLatitude,jdbcType=VARCHAR}, 
+      #{expandStatus,jdbcType=VARCHAR}, #{expandFinishDate,jdbcType=TIMESTAMP}, #{expandLoanOfficeId,jdbcType=INTEGER}, 
+      #{expandLoanOfficeName,jdbcType=VARCHAR}, #{distributeLoanOfficeId,jdbcType=INTEGER}, 
+      #{distributeLoanOfficeName,jdbcType=VARCHAR}, #{deleteFalg,jdbcType=TINYINT}, #{expandLogicType,jdbcType=TINYINT}, 
+      #{branchId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.bochtec.mysql.domain.CorpDomain">
+        insert into tb_corp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sellerName != null">
+                seller_name,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="centerArea != null">
+                center_area,
+            </if>
+            <if test="secondArea != null">
+                second_area,
+            </if>
+            <if test="town != null">
+                town,
+            </if>
+            <if test="corpName != null">
+                corp_name,
+            </if>
+            <if test="socialCode != null">
+                social_code,
+            </if>
+            <if test="legalPerson != null">
+                legal_person,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="businessStatus != null">
+                business_status,
+            </if>
+            <if test="businessType != null">
+                business_type,
+            </if>
+            <if test="registerDate != null">
+                register_date,
+            </if>
+            <if test="registerCapital != null">
+                register_capital,
+            </if>
+            <if test="contactTel != null">
+                contact_tel,
+            </if>
+            <if test="registerAuthority != null">
+                register_authority,
+            </if>
+            <if test="businessScope != null">
+                business_scope,
+            </if>
+            <if test="realAddress != null">
+                real_address,
+            </if>
+            <if test="realAddressLongitude != null">
+                real_address_longitude,
+            </if>
+            <if test="realAddressLatitude != null">
+                real_address_latitude,
+            </if>
+            <if test="expandStatus != null">
+                expand_status,
+            </if>
+            <if test="expandFinishDate != null">
+                expand_finish_date,
+            </if>
+            <if test="expandLoanOfficeId != null">
+                expand_loan_office_id,
+            </if>
+            <if test="expandLoanOfficeName != null">
+                expand_loan_office_name,
+            </if>
+            <if test="distributeLoanOfficeId != null">
+                distribute_loan_office_id,
+            </if>
+            <if test="distributeLoanOfficeName != null">
+                distribute_loan_office_name,
+            </if>
+            <if test="deleteFalg != null">
+                delete_falg,
+            </if>
+            <if test="expandLogicType != null">
+                expand_logic_type,
+            </if>
+            <if test="branchId != null">
+                branch_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sellerName != null">
+                #{sellerName,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="centerArea != null">
+                #{centerArea,jdbcType=VARCHAR},
+            </if>
+            <if test="secondArea != null">
+                #{secondArea,jdbcType=VARCHAR},
+            </if>
+            <if test="town != null">
+                #{town,jdbcType=VARCHAR},
+            </if>
+            <if test="corpName != null">
+                #{corpName,jdbcType=VARCHAR},
+            </if>
+            <if test="socialCode != null">
+                #{socialCode,jdbcType=VARCHAR},
+            </if>
+            <if test="legalPerson != null">
+                #{legalPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="businessStatus != null">
+                #{businessStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="businessType != null">
+                #{businessType,jdbcType=VARCHAR},
+            </if>
+            <if test="registerDate != null">
+                #{registerDate,jdbcType=DATE},
+            </if>
+            <if test="registerCapital != null">
+                #{registerCapital,jdbcType=VARCHAR},
+            </if>
+            <if test="contactTel != null">
+                #{contactTel,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAuthority != null">
+                #{registerAuthority,jdbcType=VARCHAR},
+            </if>
+            <if test="businessScope != null">
+                #{businessScope,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddress != null">
+                #{realAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddressLongitude != null">
+                #{realAddressLongitude,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddressLatitude != null">
+                #{realAddressLatitude,jdbcType=VARCHAR},
+            </if>
+            <if test="expandStatus != null">
+                #{expandStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="expandFinishDate != null">
+                #{expandFinishDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expandLoanOfficeId != null">
+                #{expandLoanOfficeId,jdbcType=INTEGER},
+            </if>
+            <if test="expandLoanOfficeName != null">
+                #{expandLoanOfficeName,jdbcType=VARCHAR},
+            </if>
+            <if test="distributeLoanOfficeId != null">
+                #{distributeLoanOfficeId,jdbcType=INTEGER},
+            </if>
+            <if test="distributeLoanOfficeName != null">
+                #{distributeLoanOfficeName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFalg != null">
+                #{deleteFalg,jdbcType=TINYINT},
+            </if>
+            <if test="expandLogicType != null">
+                #{expandLogicType,jdbcType=TINYINT},
+            </if>
+            <if test="branchId != null">
+                #{branchId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.bochtec.mysql.domain.CorpDomainExample" resultType="java.lang.Long">
+        select count(*) from tb_corp
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update tb_corp
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.sellerName != null">
+                seller_name = #{record.sellerName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.province != null">
+                province = #{record.province,jdbcType=VARCHAR},
+            </if>
+            <if test="record.city != null">
+                city = #{record.city,jdbcType=VARCHAR},
+            </if>
+            <if test="record.centerArea != null">
+                center_area = #{record.centerArea,jdbcType=VARCHAR},
+            </if>
+            <if test="record.secondArea != null">
+                second_area = #{record.secondArea,jdbcType=VARCHAR},
+            </if>
+            <if test="record.town != null">
+                town = #{record.town,jdbcType=VARCHAR},
+            </if>
+            <if test="record.corpName != null">
+                corp_name = #{record.corpName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.socialCode != null">
+                social_code = #{record.socialCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.legalPerson != null">
+                legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.businessStatus != null">
+                business_status = #{record.businessStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.businessType != null">
+                business_type = #{record.businessType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registerDate != null">
+                register_date = #{record.registerDate,jdbcType=DATE},
+            </if>
+            <if test="record.registerCapital != null">
+                register_capital = #{record.registerCapital,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contactTel != null">
+                contact_tel = #{record.contactTel,jdbcType=VARCHAR},
+            </if>
+            <if test="record.registerAuthority != null">
+                register_authority = #{record.registerAuthority,jdbcType=VARCHAR},
+            </if>
+            <if test="record.businessScope != null">
+                business_scope = #{record.businessScope,jdbcType=VARCHAR},
+            </if>
+            <if test="record.realAddress != null">
+                real_address = #{record.realAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.realAddressLongitude != null">
+                real_address_longitude = #{record.realAddressLongitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.realAddressLatitude != null">
+                real_address_latitude = #{record.realAddressLatitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.expandStatus != null">
+                expand_status = #{record.expandStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="record.expandFinishDate != null">
+                expand_finish_date = #{record.expandFinishDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.expandLoanOfficeId != null">
+                expand_loan_office_id = #{record.expandLoanOfficeId,jdbcType=INTEGER},
+            </if>
+            <if test="record.expandLoanOfficeName != null">
+                expand_loan_office_name = #{record.expandLoanOfficeName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.distributeLoanOfficeId != null">
+                distribute_loan_office_id = #{record.distributeLoanOfficeId,jdbcType=INTEGER},
+            </if>
+            <if test="record.distributeLoanOfficeName != null">
+                distribute_loan_office_name = #{record.distributeLoanOfficeName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deleteFalg != null">
+                delete_falg = #{record.deleteFalg,jdbcType=TINYINT},
+            </if>
+            <if test="record.expandLogicType != null">
+                expand_logic_type = #{record.expandLogicType,jdbcType=TINYINT},
+            </if>
+            <if test="record.branchId != null">
+                branch_id = #{record.branchId,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update tb_corp
+        set id = #{record.id,jdbcType=INTEGER},
+        seller_name = #{record.sellerName,jdbcType=VARCHAR},
+        province = #{record.province,jdbcType=VARCHAR},
+        city = #{record.city,jdbcType=VARCHAR},
+        center_area = #{record.centerArea,jdbcType=VARCHAR},
+        second_area = #{record.secondArea,jdbcType=VARCHAR},
+        town = #{record.town,jdbcType=VARCHAR},
+        corp_name = #{record.corpName,jdbcType=VARCHAR},
+        social_code = #{record.socialCode,jdbcType=VARCHAR},
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+        address = #{record.address,jdbcType=VARCHAR},
+        business_status = #{record.businessStatus,jdbcType=VARCHAR},
+        business_type = #{record.businessType,jdbcType=VARCHAR},
+        register_date = #{record.registerDate,jdbcType=DATE},
+        register_capital = #{record.registerCapital,jdbcType=VARCHAR},
+        contact_tel = #{record.contactTel,jdbcType=VARCHAR},
+        register_authority = #{record.registerAuthority,jdbcType=VARCHAR},
+        business_scope = #{record.businessScope,jdbcType=VARCHAR},
+        real_address = #{record.realAddress,jdbcType=VARCHAR},
+        real_address_longitude = #{record.realAddressLongitude,jdbcType=VARCHAR},
+        real_address_latitude = #{record.realAddressLatitude,jdbcType=VARCHAR},
+        expand_status = #{record.expandStatus,jdbcType=VARCHAR},
+        expand_finish_date = #{record.expandFinishDate,jdbcType=TIMESTAMP},
+        expand_loan_office_id = #{record.expandLoanOfficeId,jdbcType=INTEGER},
+        expand_loan_office_name = #{record.expandLoanOfficeName,jdbcType=VARCHAR},
+        distribute_loan_office_id = #{record.distributeLoanOfficeId,jdbcType=INTEGER},
+        distribute_loan_office_name = #{record.distributeLoanOfficeName,jdbcType=VARCHAR},
+        delete_falg = #{record.deleteFalg,jdbcType=TINYINT},
+        expand_logic_type = #{record.expandLogicType,jdbcType=TINYINT},
+        branch_id = #{record.branchId,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bochtec.mysql.domain.CorpDomain">
+        update tb_corp
+        <set>
+            <if test="sellerName != null">
+                seller_name = #{sellerName,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="centerArea != null">
+                center_area = #{centerArea,jdbcType=VARCHAR},
+            </if>
+            <if test="secondArea != null">
+                second_area = #{secondArea,jdbcType=VARCHAR},
+            </if>
+            <if test="town != null">
+                town = #{town,jdbcType=VARCHAR},
+            </if>
+            <if test="corpName != null">
+                corp_name = #{corpName,jdbcType=VARCHAR},
+            </if>
+            <if test="socialCode != null">
+                social_code = #{socialCode,jdbcType=VARCHAR},
+            </if>
+            <if test="legalPerson != null">
+                legal_person = #{legalPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="businessStatus != null">
+                business_status = #{businessStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="businessType != null">
+                business_type = #{businessType,jdbcType=VARCHAR},
+            </if>
+            <if test="registerDate != null">
+                register_date = #{registerDate,jdbcType=DATE},
+            </if>
+            <if test="registerCapital != null">
+                register_capital = #{registerCapital,jdbcType=VARCHAR},
+            </if>
+            <if test="contactTel != null">
+                contact_tel = #{contactTel,jdbcType=VARCHAR},
+            </if>
+            <if test="registerAuthority != null">
+                register_authority = #{registerAuthority,jdbcType=VARCHAR},
+            </if>
+            <if test="businessScope != null">
+                business_scope = #{businessScope,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddress != null">
+                real_address = #{realAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddressLongitude != null">
+                real_address_longitude = #{realAddressLongitude,jdbcType=VARCHAR},
+            </if>
+            <if test="realAddressLatitude != null">
+                real_address_latitude = #{realAddressLatitude,jdbcType=VARCHAR},
+            </if>
+            <if test="expandStatus != null">
+                expand_status = #{expandStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="expandFinishDate != null">
+                expand_finish_date = #{expandFinishDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expandLoanOfficeId != null">
+                expand_loan_office_id = #{expandLoanOfficeId,jdbcType=INTEGER},
+            </if>
+            <if test="expandLoanOfficeName != null">
+                expand_loan_office_name = #{expandLoanOfficeName,jdbcType=VARCHAR},
+            </if>
+            <if test="distributeLoanOfficeId != null">
+                distribute_loan_office_id = #{distributeLoanOfficeId,jdbcType=INTEGER},
+            </if>
+            <if test="distributeLoanOfficeName != null">
+                distribute_loan_office_name = #{distributeLoanOfficeName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFalg != null">
+                delete_falg = #{deleteFalg,jdbcType=TINYINT},
+            </if>
+            <if test="expandLogicType != null">
+                expand_logic_type = #{expandLogicType,jdbcType=TINYINT},
+            </if>
+            <if test="branchId != null">
+                branch_id = #{branchId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bochtec.mysql.domain.CorpDomain">
+    update tb_corp
+    set seller_name = #{sellerName,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      center_area = #{centerArea,jdbcType=VARCHAR},
+      second_area = #{secondArea,jdbcType=VARCHAR},
+      town = #{town,jdbcType=VARCHAR},
+      corp_name = #{corpName,jdbcType=VARCHAR},
+      social_code = #{socialCode,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      business_status = #{businessStatus,jdbcType=VARCHAR},
+      business_type = #{businessType,jdbcType=VARCHAR},
+      register_date = #{registerDate,jdbcType=DATE},
+      register_capital = #{registerCapital,jdbcType=VARCHAR},
+      contact_tel = #{contactTel,jdbcType=VARCHAR},
+      register_authority = #{registerAuthority,jdbcType=VARCHAR},
+      business_scope = #{businessScope,jdbcType=VARCHAR},
+      real_address = #{realAddress,jdbcType=VARCHAR},
+      real_address_longitude = #{realAddressLongitude,jdbcType=VARCHAR},
+      real_address_latitude = #{realAddressLatitude,jdbcType=VARCHAR},
+      expand_status = #{expandStatus,jdbcType=VARCHAR},
+      expand_finish_date = #{expandFinishDate,jdbcType=TIMESTAMP},
+      expand_loan_office_id = #{expandLoanOfficeId,jdbcType=INTEGER},
+      expand_loan_office_name = #{expandLoanOfficeName,jdbcType=VARCHAR},
+      distribute_loan_office_id = #{distributeLoanOfficeId,jdbcType=INTEGER},
+      distribute_loan_office_name = #{distributeLoanOfficeName,jdbcType=VARCHAR},
+      delete_falg = #{deleteFalg,jdbcType=TINYINT},
+      expand_logic_type = #{expandLogicType,jdbcType=TINYINT},
+      branch_id = #{branchId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateBatch" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tb_corp
+            <set>
+                corp_name=#{item.corpName,jdbcType=VARCHAR},
+                social_code=#{item.socialCode,jdbcType=VARCHAR}
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+</mapper>
